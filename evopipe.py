@@ -1,5 +1,7 @@
 import random
 import numpy as np
+
+import deapevo
 from evaluator import DefaultEvaluator
 
 from deap import base, creator, tools
@@ -7,15 +9,16 @@ from sklearn.pipeline import make_pipeline
 
 
 class EvoPipeClassifier:
-    def __init__(self, preproc, classif, n_preproc, evaluator=None, ngen=20, pop_size=20,
-                 ind_mutpb=0.1, mutpb=0.25,cxpb=0.5, turns=3, hf_size=5):
+    def __init__(self, preproc, classif, params, max_prepro, ngen=20, pop_size=20,
+                 ind_mutpb=0.1, param_mutpb=0.2, mutpb=0.25,cxpb=0.5, turns=3, hf_size=5):
+        # TODO redo
         """
         Optimized classification pipeline
 
         An evolutionary algorithm is used to optimize a scikit-learn pipeline
         :param preproc: List or ndarray of preprocessors
         :param classif: List or ndarray of classifiers
-        :param n_preproc: Maximum number of preprocessors in a pipeline
+
         :param evaluator: Pipeline evaluator
         :param ngen: Number of generations
         :param pop_size: Size of a population
@@ -25,22 +28,19 @@ class EvoPipeClassifier:
         :param turns: Tournament selection turns
         :param hf_size: Hall of fame size
         """
-        self.pr_l = np.array(preproc)
-        self.cl_l = np.array(classif)
-        self.n_prep = n_preproc
+        self.prepro_list = np.array(preproc)
+        self.clf_list = np.array(classif)
+        self.params_dict = params
+
+        self.max_prepro = max_prepro
 
         self._ngen = ngen
         self._pop_size = pop_size
-        self._ind_mutpb = ind_mutpb
+        self._index_mutpb = ind_mutpb
+        self._param_mutpb = param_mutpb
         self._mutpb = mutpb
         self._cxpb = cxpb
         self._trn_size = turns
-
-        # todo create a wrapper, evaluator accepts pipelines, not indices or a function
-        if evaluator is None:
-            self._eval = DefaultEvaluator(self._compile_pipe)
-        else:
-            self._eval = evaluator
 
         self.hf = tools.HallOfFame(hf_size)
         self._toolbox = self._toolbox_init()
@@ -50,7 +50,7 @@ class EvoPipeClassifier:
         self.logbook.header = "gen", "avg", "min", "max"
         self.best_pipe = None
 
-    # will be replaced by fit-predict pattern with GridSearch
+    # TODO redo
     def fit(self, train_X, train_Y):
         """
         Creates an optimized pipeline and fits it
@@ -58,8 +58,6 @@ class EvoPipeClassifier:
         :param train_Y: Target array
         :return: Optimized pipeline
         """
-
-        self._eval.fit(train_X, train_Y)
 
         pop = self._toolbox.population(n=self._pop_size)
 
@@ -130,6 +128,7 @@ class EvoPipeClassifier:
 
         return self.best_pipe.score(test_X, test_Y)
 
+    # TODO remake or move
     def best_pipelines(self):
         """
         Gets a list of best optimized pipelines in the HallOfFame object
@@ -137,6 +136,7 @@ class EvoPipeClassifier:
         """
         return map(self._toolbox.compile, self.hf.items)
 
+    # TODO redo
     def _toolbox_init(self):
         """
         Initializes a deap toolbox for the evolutionary algorithm
@@ -150,27 +150,16 @@ class EvoPipeClassifier:
         toolbox.register("individual", tools.initIterate, creator.Individual, self._ind_range)
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-        # -1 indicates "missing preprocessor"
-        # the distribution of the probability is not uniform (yet)
-        lower_bounds = [-1] * self.n_prep + [0]
-        upper_bounds = [len(self.pr_l) - 1] * self.n_prep + [len(self.cl_l) - 1]
+        toolbox.register("mate", deapevo.cxOnePoint)
+        toolbox.register("mutate", deapevo.mutate_individual, params=self.params_dict,
+                         ind_pb=self._index_mutpb, param_pb=self._param_mutpb)
 
-        toolbox.register("mate", tools.cxOnePoint)
-        toolbox.register("mutate", tools.mutUniformInt, low=lower_bounds, up=upper_bounds, indpb=self._ind_mutpb)
-        toolbox.register("evaluate", self._eval.score)
+        toolbox.register("evaluate", self._eval_pipe)
         toolbox.register("select", tools.selTournament, tournsize=self._trn_size)
 
         toolbox.register("compile", self._compile_pipe)
 
         return toolbox
-
-    def _stats_init(self):
-        stats = tools.Statistics(key=lambda ind: ind.fitness.values)
-        stats.register('avg', np.mean)
-        stats.register('var', np.var)
-        stats.register('min', np.min)
-        stats.register('max', np.max)
-        return stats
 
     def _ind_range(self):
         """
@@ -178,12 +167,33 @@ class EvoPipeClassifier:
         :return: List of random indices
         """
         i = 0
-        while i < self.n_prep:
+        n_prepro = random.randint(0, self.max_prep)
+
+        while i < n_prepro:
             i = i + 1
-            yield random.randint(0, len(self.pr_l) - 1)
+            ind = random.randint(0, len(self.prepro_list) - 1)
+            name = self.prepro_list[ind]
+            params = self._rand_params(name)
 
-        yield random.randint(0, len(self.cl_l) - 1)
+            yield (ind, params)
 
+        ind = random.randint(0, len(self.clf_list) - 1)
+        name = self.clf_list[ind]
+        params = self._rand_params(name)
+
+        yield (ind, params)
+
+    def _rand_params(self, name):
+        all_params = self.params_dict[name]
+
+        result = {}
+        for key, values in all_params:
+            rand_param = random.choice(values)
+            result[key] = rand_param
+
+        return result
+
+    # TODO don't move to deap-evo, but evaluation etc will be there. CACHE
     def _compile_pipe(self, ind):
         """
         Creates a pipeline from the individual
@@ -194,9 +204,13 @@ class EvoPipeClassifier:
         valid_prepro = self.n_prep - ind.count(-1)
         valid_inds = [x for x in ind if x != -1]
 
-        prep = self.pr_l[valid_inds[:valid_prepro]]
-        clf = self.cl_l[valid_inds[valid_prepro:]]
+        prep = self.prepro_list[valid_inds[:valid_prepro]]
+        clf = self.clf_list[valid_inds[valid_prepro:]]
         return make_pipeline(*prep, *clf)
+
+    def _eval_pipe(self, ind):
+        pass
+
 
     def _log_stats(self, pop, gen):
         record = self._stats.compile(pop)
