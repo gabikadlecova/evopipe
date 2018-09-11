@@ -31,15 +31,11 @@ class TrainTestEvaluator:
 
 
 class DefaultEvaluator:
-    def __init__(self, compile_func):
-        self.compile = compile_func
-
     def fit(self, train_X, train_Y):
         self._tX = train_X
         self._tY = train_Y
 
-    def score(self, individual):
-        pipe = self.compile(individual)
+    def score(self, pipe):
         try:
             with warnings.catch_warnings():
                 warnings.simplefilter('ignore')
