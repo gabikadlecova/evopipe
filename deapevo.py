@@ -90,25 +90,30 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
     # evolution
     for g in range(ngen):
 
+        # possible offspring
         offspring = toolbox.clone(population)
 
+        # crossover
         for ch1, ch2 in zip(offspring[::2], offspring[1::2]):
             if random.random() < cxpb:
                 toolbox.mate(ch1, ch2)
                 del ch1.fitness.values
                 del ch2.fitness.values
 
+        # mutation
         for mut in offspring:
             if random.random() < mutpb:
                 toolbox.mutate(mut)
                 del mut.fitness.values
 
+        # offspring fitness update, these will be added to the population
         valid_offs = [ind for ind in offspring if not ind.fitness.valid]
         fitnesses = map(toolbox.evaluate, valid_offs)
 
         for ind, fit in zip(valid_offs, fitnesses):
             ind.fitness.values = fit
 
+        # next population is selected from the previous one and from produced offspring
         population[:] = toolbox.select(population + valid_offs, pop_size)
 
         hof.update(population)
