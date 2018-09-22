@@ -60,11 +60,12 @@ class EvoPipeClassifier:
 
         self._stats = stats_init()
         self.logbook = tools.Logbook()
-        self.logbook.header = "gen", "avg", "min", "max"
+        self.logbook.chapters["fitness"].header = "gen", "avg", "min", "max"
+        self.logbook.chapters["train_test"].header = "gen", "avg", "min", "max"
         self.best_pipe = None
 
     # TODO redo
-    def fit(self, train_X, train_Y):
+    def fit(self, train_X, train_Y, test_X=None, test_Y=None):
         """
         Creates an optimized pipeline and fits it
         :param train_X: Features
@@ -74,6 +75,9 @@ class EvoPipeClassifier:
 
         # evaluator setup
         self._eval.fit(train_X, train_Y)
+
+        if test_X is not None and test_Y is not None:
+            self._eval.fit_test(test_X, test_Y)
 
         # population setup
         pop = self._toolbox.population(n=self._pop_size)
@@ -220,7 +224,7 @@ class EvoPipeClassifier:
         :return: Score of the compiled pipeline
         """
         pipe = self._compile_pipe(ind)
-        return self._eval.score(pipe)
+        return self._eval.score(pipe), self._eval.train_test_score(pipe)
 
     def _log_stats(self, pop, gen):
         record = self._stats.compile(pop)
@@ -232,10 +236,14 @@ class NotFittedError(Exception):
 
 
 def stats_init():
-    stats = tools.Statistics(key=lambda ind: ind.fitness.values)
-    stats.register('avg', np.mean)
-    stats.register('var', np.var)
-    stats.register('min', np.min)
-    stats.register('max', np.max)
-    return stats
+    fitness_stats = tools.Statistics(key=lambda ind: ind.fitness.values)
+    train_test_stats = tools.Statistics(key=lambda ind: ind.train_test)
+
+    mstats = tools.MultiStatistics(fitness=fitness_stats, train_test=train_test_stats)
+
+    mstats.register('avg', np.mean)
+    mstats.register('var', np.var)
+    mstats.register('min', np.min)
+    mstats.register('max', np.max)
+    return mstats
 

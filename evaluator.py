@@ -27,21 +27,42 @@ class TrainTestEvaluator:
             return (pipe.score(test_X, test_Y),)
         # todo better error handling
         except:
-            return (0.0,)
+            return 0.0,
 
 
 class DefaultEvaluator:
     def fit(self, train_X, train_Y):
         self._tX = train_X
-        self._tY = train_Y
+        self._trY = train_Y
+        self._teX = None
+        self._te_Y = None
 
     def score(self, pipe):
         try:
             with warnings.catch_warnings():
                 warnings.simplefilter('ignore')
 
-                scores = cross_val_score(pipe, self._tX, self._tY)
+                scores = cross_val_score(pipe, self._tX, self._trY, cv=10)
                 return (np.mean(scores),)
         # todo better error handling
         except:
-            return (0.0,)
+            return 0.0,
+
+    def fit_test(self, test_X, test_Y):
+        self._teX = test_X
+        self._te_Y = test_Y
+
+    def train_test_score(self, pipe):
+        if self._teX is None or self._te_Y is None:
+            return None
+
+        try:
+            with warnings.catch_warnings():
+                warnings.simplefilter('ignore')
+
+                pipe.fit(self._tX, self._trY)
+                return pipe.score(self._teX, self._te_Y),
+        # todo better error handling
+        except:
+            return 0.0,
+

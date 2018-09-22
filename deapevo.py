@@ -83,12 +83,15 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
     """
 
     # setup
-    fitnesses = map(toolbox.evaluate, population)
-    for ind, fit in zip(population, fitnesses):
+    scores = map(toolbox.evaluate, population)
+    for ind, (fit, tt) in zip(population, scores):
         ind.fitness.values = fit
+        ind.train_test = tt
+
+    # toolbox.log(population, 0)
 
     # evolution
-    for g in range(ngen):
+    for g in range(1, ngen):
 
         # possible offspring
         offspring = toolbox.clone(population)
@@ -108,10 +111,11 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
 
         # offspring fitness update, these will be added to the population
         valid_offs = [ind for ind in offspring if not ind.fitness.valid]
-        fitnesses = map(toolbox.evaluate, valid_offs)
 
-        for ind, fit in zip(valid_offs, fitnesses):
+        scores = map(toolbox.evaluate, valid_offs)
+        for ind, (fit, tt) in zip(valid_offs, scores):
             ind.fitness.values = fit
+            ind.train_test = tt
 
         # next population is selected from the previous one and from produced offspring
         population[:] = toolbox.select(population + valid_offs, pop_size)
