@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/evopipe.py" line="169" />
+    <bookmark url="file://$PROJECT_DIR$/evopipe.py" line="199" />
     <bookmark url="file://$PROJECT_DIR$/evopipe.py" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44d3a2b3-59fb-468b-8493-bccea90fe9a2" name="Default" comment="Added custom evolutionary methods">
-      <change afterPath="$PROJECT_DIR$/Untitled.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evopipe-digits-params.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/steps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wilt-test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wilt-train.csv" afterDir="false" />
+    <list default="true" id="44d3a2b3-59fb-468b-8493-bccea90fe9a2" name="Default" comment="Detail, other files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deapevo.py" beforeDir="false" afterPath="$PROJECT_DIR$/deapevo.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,94 +18,78 @@
     <session id="828253605">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.210" value="1" />
-          <entry key="project.open.time.7" value="2" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.7" value="3" />
+          <entry key="project.open.time.8" value="3" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="20" />
+          <entry key="py" value="29" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="20" />
+          <entry key="Python" value="29" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="dummy" value="6" />
-          <entry key="py" value="7898" />
-          <entry key="txt" value="285" />
+          <entry key="dummy" value="7" />
+          <entry key="py" value="9696" />
+          <entry key="txt" value="312" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="291" />
-          <entry key="Python" value="7898" />
+          <entry key="PLAIN_TEXT" value="319" />
+          <entry key="Python" value="9696" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
         <counts>
+          <entry key="git.branch.checkout.local" value="1" />
           <entry key="git.branch.create.new" value="1" />
+          <entry key="git.branch.merge" value="1" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/evaluator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="39" column="26" lean-forward="true" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evopipe.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="78" column="56" selection-start-line="78" selection-start-column="56" selection-end-line="78" selection-end-column="56" />
+            <state relative-caret-position="630">
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1536667981231" expanded="true" signature="6276:6384" ph="..." />
-                <marker date="1536667981231" expanded="true" signature="6685:6694" ph="..." />
-                <marker date="1536667981231" expanded="true" signature="6685:6962" ph="..." />
-                <marker date="1536667981231" expanded="true" signature="6991:7000" ph="..." />
-                <marker date="1536667981231" expanded="true" signature="7805:7811" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/deapevo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="117" selection-start-line="117" selection-end-line="117" />
-              <folding>
-                <marker date="1536668327097" expanded="true" signature="641:644" ph="..." />
-                <marker date="1536668327097" expanded="true" signature="2083:2088" ph="..." />
-                <marker date="1536668327097" expanded="true" signature="2100:2102" ph="..." />
-                <marker date="1536668327097" expanded="true" signature="2548:2733" ph="..." />
-                <marker date="1536668327097" expanded="true" signature="3651:4888" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
+        <entry file="file://$PROJECT_DIR$/.ipynb_checkpoints/steps.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="10" selection-start-line="10" selection-end-line="10" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/steps.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="38" column="51" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+            <state relative-caret-position="60">
+              <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
               <folding>
                 <element signature="e#0#33#0" expanded="true" />
               </folding>
@@ -135,13 +113,14 @@
       <find>max_</find>
       <find>tools</find>
       <find>enume</find>
+      <find>logb</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="redesign" />
       </map>
     </option>
   </component>
@@ -157,11 +136,11 @@
         <option value="$PROJECT_DIR$/.ipynb_checkpoints/estimators.py" />
         <option value="$PROJECT_DIR$/.ipynb_checkpoints/steps.py" />
         <option value="$PROJECT_DIR$/deap-evo.py" />
-        <option value="$PROJECT_DIR$/evaluator.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/steps.py" />
         <option value="$PROJECT_DIR$/evopipe.py" />
+        <option value="$PROJECT_DIR$/evaluator.py" />
         <option value="$PROJECT_DIR$/deapevo.py" />
+        <option value="$PROJECT_DIR$/steps.py" />
       </list>
     </option>
   </component>
@@ -176,6 +155,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -192,7 +172,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -210,7 +189,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test (1)">
+  <component name="RunManager" selected="Python.test">
     <configuration name="deapevo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="evo-pipe" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -325,11 +304,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test (1)" />
-        <item itemvalue="Python.deapevo" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.evopipe" />
         <item itemvalue="Python.zk" />
+        <item itemvalue="Python.test (1)" />
+        <item itemvalue="Python.deapevo" />
       </list>
     </recent_temporary>
   </component>
@@ -365,7 +344,28 @@
       <option name="project" value="LOCAL" />
       <updated>1536668241794</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Detail">
+      <created>1536668347105</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1536668347105</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Detail, other files">
+      <created>1536668361242</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1536668361242</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Detail, other files">
+      <created>1537646042874</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1537646042874</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -393,12 +393,38 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3298479" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32946634" />
       <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.49947312" visible="true" weight="0.3298479" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052685" side_tool="true" visible="true" weight="0.3298479" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.49841937" visible="true" weight="0.32889733" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5015806" side_tool="true" weight="0.32889733" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -407,18 +433,9 @@
     <MESSAGE value="Added custom evolutionary methods" />
     <MESSAGE value="Finished revamp of evolutionary algorithm, with pipeline individual changed (list of int -&gt; list of (name, param dict), custom methods" />
     <MESSAGE value="Added other relevant files (datasets, sample notebooks)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added other relevant files (datasets, sample notebooks)" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Detail" />
+    <MESSAGE value="Detail, other files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Detail, other files" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
@@ -484,13 +501,6 @@ print(x)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.ipynb_checkpoints/steps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Anaconda/Lib/_collections_abc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
@@ -526,16 +536,6 @@ print(x)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/datasets/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4575">
@@ -550,16 +550,6 @@ print(x)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/steps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="38" column="51" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Anaconda/Lib/site-packages/deap/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
@@ -567,10 +557,37 @@ print(x)</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/deapevo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1350">
+          <caret line="90" column="6" selection-start-line="90" selection-start-column="6" selection-end-line="90" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/steps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1545">
+          <caret line="116" column="47" selection-start-line="116" selection-start-column="47" selection-end-line="116" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/evaluator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
+        <state relative-caret-position="193">
+          <caret line="39" column="26" lean-forward="true" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -579,29 +596,20 @@ print(x)</expression-string>
     </entry>
     <entry file="file://$PROJECT_DIR$/evopipe.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="78" column="56" selection-start-line="78" selection-start-column="56" selection-end-line="78" selection-end-column="56" />
+        <state relative-caret-position="630">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <marker date="1536667981231" expanded="true" signature="6276:6384" ph="..." />
-            <marker date="1536667981231" expanded="true" signature="6685:6694" ph="..." />
-            <marker date="1536667981231" expanded="true" signature="6685:6962" ph="..." />
-            <marker date="1536667981231" expanded="true" signature="6991:7000" ph="..." />
-            <marker date="1536667981231" expanded="true" signature="7805:7811" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deapevo.py">
+    <entry file="file://$PROJECT_DIR$/.ipynb_checkpoints/steps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="117" selection-start-line="117" selection-end-line="117" />
+        <state relative-caret-position="60">
+          <caret line="15" column="38" selection-start-line="15" selection-start-column="38" selection-end-line="15" selection-end-column="38" />
           <folding>
-            <marker date="1536668327097" expanded="true" signature="641:644" ph="..." />
-            <marker date="1536668327097" expanded="true" signature="2083:2088" ph="..." />
-            <marker date="1536668327097" expanded="true" signature="2100:2102" ph="..." />
-            <marker date="1536668327097" expanded="true" signature="2548:2733" ph="..." />
-            <marker date="1536668327097" expanded="true" signature="3651:4888" ph="..." />
+            <element signature="e#0#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
