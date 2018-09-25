@@ -18,7 +18,8 @@ def _comp_or_default(feat_size=None, default=None):
     if feat_size is None:
         return default
 
-    return list(map(lambda frac: feat_size * frac, _feat_frac))
+    k_comp = map(lambda frac: int(feat_size * frac), _feat_frac)
+    return list(sorted(set(k_comp)))
 
 
 def get_params(feat_size=None):

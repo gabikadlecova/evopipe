@@ -19,11 +19,14 @@ def cx_one_point_rev(ind1, ind2):
     return ind1, ind2
 
 
-def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb):
+def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb, len_pb):
     """
-    The indiviudal is mutated according to the probabilities. If a step is mutated, it is either replaced whole
-    (with probability of swap_pb), or only some of its parameters are mutated (with probability param_pb for every
-    parameter independently). The individual is modified in place.
+    The individual is mutated according to argument probabilities.
+    If a step is mutated
+        - it is replaced whole (with probability of swap_pb)
+        - only some of its parameters are mutated (with probability 1 - swap_pb and param_pb for every parameter)
+    Individual length might be modified with probability len_pb.
+    The individual is modified in place.
     :param ind1: The individual to be mutated
     :param params: Dictionary which contains all method parameter dictionaries (indexed by name)
     :param toolbox: Deap toolbox
@@ -31,6 +34,7 @@ def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb):
     :param param_pb: Probability of a single step parameter to be mutated.
     :param swap_pb: Probability of a step to be replaced by a random preprocessor/classifier. If it is not replaced,
                     the parameters are mutated instead.
+    :param len_pb: Probability of the of individual length mutation
     :return: A mutated individual
     """
 
@@ -39,7 +43,8 @@ def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb):
 
     for i in modif_ind:
         # swap mutation
-        if random.random() < swap_pb:
+        rnd = random.random()
+        if rnd < swap_pb:
             # random preprocessor or classifier respectively
             ind1[i] = toolbox.random_clf() if i == len(ind1) - 1 else toolbox.random_prepro()
         # parameter mutation
@@ -47,7 +52,20 @@ def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb):
             name, p_list = ind1[i]
             ind1[i] = name, mutate_params(params[name], param_pb, p_list)
 
+    if random.random() < len_pb:
+        mutate_length(ind1, toolbox)
+
     return ind1
+
+
+def mutate_length(ind, toolbox):
+    # add preprocessor - individual too short/probability 0.5
+    if len(ind) < 2 or random.random() < 0.4:
+        random_prepro = toolbox.random_prepro()
+        ind.insert(0, random_prepro)
+    # remove a preprocessor
+    else:
+        del ind[0]
 
 
 def mutate_params(possible, param_pb, values):
@@ -118,7 +136,8 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
             ind.train_test = tt
 
         # next population is selected from the previous one and from produced offspring
-        population[:] = toolbox.select(population + valid_offs, pop_size)
+        # population[:] = toolbox.select(population + valid_offs, pop_size)
+        population[:] = toolbox.select(hof + offspring, pop_size)
 
         hof.update(population)
         toolbox.log(population, g)

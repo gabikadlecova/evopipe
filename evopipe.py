@@ -1,10 +1,9 @@
 import random
-import warnings
 import numpy as np
+from collections import OrderedDict
 
 import deapevo
 from evaluator import DefaultEvaluator
-from sklearn.model_selection import cross_val_score
 
 from deap import base, creator, tools
 from sklearn.pipeline import make_pipeline
@@ -12,8 +11,8 @@ from sklearn.pipeline import make_pipeline
 
 class EvoPipeClassifier:
     def __init__(self, preproc, classif, params, max_prepro=4, ngen=40, pop_size=30,
-                 ind_mutpb=0.1, param_mutpb=0.2, swap_mutpb=0.1, mutpb=0.25, cxpb=0.5, turns=3, hf_size=5):
-        # TODO redo
+                 ind_mutpb=0.1, param_mutpb=0.2, swap_mutpb=0.1, len_mutpb=0.4, mutpb=0.25, cxpb=0.5,
+                 turns=3, hf_size=5):
         """
         Optimized classification pipeline
 
@@ -30,6 +29,7 @@ class EvoPipeClassifier:
         :param param_mutpb: Probability of a single parameter of a pipeline step to be mutated
         :param swap_mutpb: Probability of a whole step to be replaced by another random preprocessor/classifier
                            respectively
+        :param len_mutpb: Probability of the individual length to be altered
 
         :param mutpb: Probability of an individual to be mutated
         :param cxpb: Crossover probability
@@ -49,6 +49,7 @@ class EvoPipeClassifier:
         self._index_mutpb = ind_mutpb
         self._param_mutpb = param_mutpb
         self._swap_mutpb = swap_mutpb
+        self._len_mutpb = len_mutpb
         self._mutpb = mutpb
         self._cxpb = cxpb
 
@@ -57,14 +58,14 @@ class EvoPipeClassifier:
         self.hof = tools.HallOfFame(hf_size)
         self._toolbox = self._toolbox_init()
         self._eval = DefaultEvaluator()
+        self._eval_cache = {}
 
         self._stats = stats_init()
         self.logbook = tools.Logbook()
-        self.logbook.chapters["fitness"].header = "gen", "avg", "min", "max"
-        self.logbook.chapters["train_test"].header = "gen", "avg", "min", "max"
+        self.logbook.chapters["fitness"].header = "var", "avg", "min", "max"
+        self.logbook.chapters["train_test"].header = "var", "avg", "min", "max"
         self.best_pipe = None
 
-    # TODO redo
     def fit(self, train_X, train_Y, test_X=None, test_Y=None):
         """
         Creates an optimized pipeline and fits it
@@ -128,7 +129,7 @@ class EvoPipeClassifier:
         """
         toolbox = base.Toolbox()
 
-        creator.create("PipeFitness", base.Fitness, weights=(1.0,))
+        creator.create("PipeFitness", base.Fitness, weights=(1.0, -1.0))
         creator.create("Individual", list, fitness=creator.PipeFitness)
 
         toolbox.register("random_prepro", self._random_prepro)
@@ -140,7 +141,8 @@ class EvoPipeClassifier:
 
         toolbox.register("mate", deapevo.cx_one_point_rev)
         toolbox.register("mutate", deapevo.mutate_individual, params=self.params_dict, toolbox=toolbox,
-                         index_pb=self._index_mutpb, param_pb=self._param_mutpb, swap_pb=self._swap_mutpb)
+                         index_pb=self._index_mutpb, param_pb=self._param_mutpb, swap_pb=self._swap_mutpb,
+                         len_pb=self._len_mutpb)
 
         toolbox.register("evaluate", self._eval_pipe)
         toolbox.register("select", tools.selTournament, tournsize=self._trn_size)
@@ -193,8 +195,8 @@ class EvoPipeClassifier:
         all_params = self.params_dict[name]
 
         # choose parameters randomly from the lists
-        result = {}
-        for key, values in all_params.items():
+        result = OrderedDict()
+        for key, values in sorted(all_params.items()):
             rand_param = random.choice(values)
             result[key] = rand_param
 
@@ -223,8 +225,14 @@ class EvoPipeClassifier:
         :param ind: Individual, encrypted pipeline
         :return: Score of the compiled pipeline
         """
+
+        # for name, params in ind:
+        #    for step in sorted(params):
+
+
         pipe = self._compile_pipe(ind)
-        return self._eval.score(pipe), self._eval.train_test_score(pipe)
+        score, tt = self._eval.score(pipe), self._eval.train_test_score(pipe)
+        return score, tt
 
     def _log_stats(self, pop, gen):
         record = self._stats.compile(pop)
@@ -236,10 +244,11 @@ class NotFittedError(Exception):
 
 
 def stats_init():
-    fitness_stats = tools.Statistics(key=lambda ind: ind.fitness.values)
+    fitness_stats = tools.Statistics(key=lambda ind: ind.fitness.values[0])
+    # var_stats = tools.Statistics(key=lambda ind: ind.fitness.values[1])
     train_test_stats = tools.Statistics(key=lambda ind: ind.train_test)
 
-    mstats = tools.MultiStatistics(fitness=fitness_stats, train_test=train_test_stats)
+    mstats = tools.MultiStatistics(fitness=fitness_stats, train_test=train_test_stats) # , var_stats=var_stats)
 
     mstats.register('avg', np.mean)
     mstats.register('var', np.var)

@@ -2,6 +2,7 @@ import numpy as np
 import warnings
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import cross_val_score
+from sklearn.metrics import cohen_kappa_score, make_scorer
 
 
 class TrainTestEvaluator:
@@ -32,37 +33,39 @@ class TrainTestEvaluator:
 
 class DefaultEvaluator:
     def fit(self, train_X, train_Y):
-        self._tX = train_X
+        self._trX = train_X
         self._trY = train_Y
         self._teX = None
-        self._te_Y = None
+        self._teY = None
 
     def score(self, pipe):
         try:
             with warnings.catch_warnings():
                 warnings.simplefilter('ignore')
 
-                scores = cross_val_score(pipe, self._tX, self._trY, cv=10)
-                return (np.mean(scores),)
+                scores = cross_val_score(pipe, self._trX, self._trY, cv=10, scoring=make_scorer(cohen_kappa_score))
+                return np.mean(scores), np.var(scores)
         # todo better error handling
         except:
-            return 0.0,
+            return 0.0, 1.0
 
     def fit_test(self, test_X, test_Y):
         self._teX = test_X
-        self._te_Y = test_Y
+        self._teY = test_Y
 
     def train_test_score(self, pipe):
-        if self._teX is None or self._te_Y is None:
+        if self._teX is None or self._teY is None:
             return None
 
         try:
             with warnings.catch_warnings():
                 warnings.simplefilter('ignore')
 
-                pipe.fit(self._tX, self._trY)
-                return pipe.score(self._teX, self._te_Y),
+                pipe.fit(self._trX, self._trY)
+                prediction = pipe.predict(self._teX)
+
+                return cohen_kappa_score(self._teY, prediction)
         # todo better error handling
         except:
-            return 0.0,
+            return 0.0
 
