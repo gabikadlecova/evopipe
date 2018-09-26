@@ -1,7 +1,8 @@
 import random
 import numpy as np
-from collections import OrderedDict
+import multiprocessing
 
+from collections import OrderedDict
 import deapevo
 from evaluator import DefaultEvaluator
 
@@ -10,7 +11,7 @@ from sklearn.pipeline import make_pipeline
 
 
 class EvoPipeClassifier:
-    def __init__(self, preproc, classif, params, max_prepro=4, ngen=40, pop_size=30,
+    def __init__(self, preproc, classif, params, max_prepro=4, ngen=40, pop_size=30, scorer=None,
                  ind_mutpb=0.1, param_mutpb=0.2, swap_mutpb=0.1, len_mutpb=0.4, mutpb=0.25, cxpb=0.5,
                  turns=3, hf_size=5):
         """
@@ -40,9 +41,9 @@ class EvoPipeClassifier:
         self.prepro_dict = preproc
         self.clf_dict = classif
         self.params_dict = params
+        self._scorer = scorer
 
         self.max_prepro = max_prepro
-
         self._ngen = ngen
         self._pop_size = pop_size
 
@@ -119,7 +120,9 @@ class EvoPipeClassifier:
         Gets a list of best optimized pipelines in the HallOfFame object
         :return: List of optimized pipelines
         """
-        return map(self._toolbox.compile, self.hof.items)
+        pipes = map(self._toolbox.compile, self.hof.items)
+        scores = map(lambda ind: ind.fitness.values[0], self.hof.items)
+        return zip(pipes, scores)
 
     # TODO redo
     def _toolbox_init(self):
@@ -131,6 +134,9 @@ class EvoPipeClassifier:
 
         creator.create("PipeFitness", base.Fitness, weights=(1.0, -1.0))
         creator.create("Individual", list, fitness=creator.PipeFitness)
+
+        pool = multiprocessing.Pool()
+        toolbox.register("map", pool.map)
 
         toolbox.register("random_prepro", self._random_prepro)
         toolbox.register("random_clf", self._random_clf)
@@ -226,13 +232,17 @@ class EvoPipeClassifier:
         :return: Score of the compiled pipeline
         """
 
-        # for name, params in ind:
-        #    for step in sorted(params):
+        ind_str = str(ind)
+        if ind_str not in self._eval_cache.keys():
+            pipe = self._compile_pipe(ind)
 
+            score = self._eval.score(pipe, scorer=self._scorer)
+            tt = self._eval.train_test_score(pipe, scorer=self._scorer)
 
-        pipe = self._compile_pipe(ind)
-        score, tt = self._eval.score(pipe), self._eval.train_test_score(pipe)
-        return score, tt
+            self._eval_cache[ind_str] = (score, tt)
+            return score, tt
+
+        return self._eval_cache[ind_str]
 
     def _log_stats(self, pop, gen):
         record = self._stats.compile(pop)
@@ -246,7 +256,7 @@ class NotFittedError(Exception):
 def stats_init():
     fitness_stats = tools.Statistics(key=lambda ind: ind.fitness.values[0])
     # var_stats = tools.Statistics(key=lambda ind: ind.fitness.values[1])
-    train_test_stats = tools.Statistics(key=lambda ind: ind.train_test)
+    train_test_stats = tools.Statistics(key=lambda ind: ind.train_test if ind.train_test is not None else 0.0)
 
     mstats = tools.MultiStatistics(fitness=fitness_stats, train_test=train_test_stats) # , var_stats=var_stats)
 

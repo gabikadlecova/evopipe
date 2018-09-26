@@ -2,7 +2,7 @@ import numpy as np
 import warnings
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import cross_val_score
-from sklearn.metrics import cohen_kappa_score, make_scorer
+from sklearn.metrics import make_scorer
 
 
 class TrainTestEvaluator:
@@ -38,22 +38,23 @@ class DefaultEvaluator:
         self._teX = None
         self._teY = None
 
-    def score(self, pipe):
+    def score(self, pipe, scorer=None):
         try:
             with warnings.catch_warnings():
                 warnings.simplefilter('ignore')
 
-                scores = cross_val_score(pipe, self._trX, self._trY, cv=10, scoring=make_scorer(cohen_kappa_score))
+                # scoring=None is the default value for the parameter
+                scores = cross_val_score(pipe, self._trX, self._trY, cv=10, scoring=scorer)
                 return np.mean(scores), np.var(scores)
         # todo better error handling
         except:
-            return 0.0, 1.0
+            return None
 
     def fit_test(self, test_X, test_Y):
         self._teX = test_X
         self._teY = test_Y
 
-    def train_test_score(self, pipe):
+    def train_test_score(self, pipe, scorer=None):
         if self._teX is None or self._teY is None:
             return None
 
@@ -62,10 +63,12 @@ class DefaultEvaluator:
                 warnings.simplefilter('ignore')
 
                 pipe.fit(self._trX, self._trY)
-                prediction = pipe.predict(self._teX)
 
-                return cohen_kappa_score(self._teY, prediction)
+                if scorer is not None:
+                    scorer(pipe, self._teX, self._teY)
+                return pipe.score(self._teX, self._teY)
+
         # todo better error handling
         except:
-            return 0.0
+            return None
 
