@@ -19,7 +19,7 @@ def cx_one_point_rev(ind1, ind2):
     return ind1, ind2
 
 
-def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb, len_pb, ret_pb=0.2, n_iter=4):
+def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb, len_pb, n_iter=4):
     """
 
     :param ind1:
@@ -32,15 +32,31 @@ def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb, len_pb
     :param n_iter:
     :return:
     """
-    # bringing diversity with mutation without hill climbing
-    if random.random() < ret_pb:
-        _mutate_once(ind1, params, toolbox, index_pb, param_pb, swap_pb)
-        mutate_length(ind1, toolbox)
-        return ind1
 
+    if random.random() < swap_pb:
+        ind1 = _mutate_once(ind1, params, toolbox, index_pb, 'swap')
+    else:
+        ind1 = _mutate_params(ind1, toolbox, params, index_pb, param_pb, n_iter)
+
+    if random.random() < len_pb:
+        mutate_length(ind1, toolbox)
+
+    return ind1
+
+
+def _try_eval(ind, toolbox):
+    fit, tt = toolbox.evaluate(ind)
+    if fit is None:
+        return False
+
+    ind.fitness.values, ind.train_test = fit, tt
+    return True
+
+
+def _mutate_params(ind1, toolbox, params, index_pb, param_pb, n_iter):
     for i in range(n_iter):
         mutant = toolbox.clone(ind1)
-        _mutate_once(mutant, params, toolbox, index_pb, param_pb, swap_pb)
+        _mutate_once(mutant, params, toolbox, index_pb, 'params', param_pb=param_pb)
 
         # individual evaluation
         if not ind1.fitness.valid:
@@ -55,41 +71,18 @@ def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb, len_pb
         if mutant.fitness.values[0] > ind1.fitness.values[0]:
             ind1 = mutant
 
-    mutant = toolbox.clone(ind1)
-    if random.random() < len_pb:
-        mutate_length(mutant, toolbox)
-
-    if not _try_eval(mutant, toolbox):
-        return ind1
-
-    return mutant if mutant.fitness.values[0] > ind1.fitness.values[0] else ind1
+    return ind1
 
 
-def _try_eval(ind, toolbox):
-    fit, tt = toolbox.evaluate(ind)
-    if fit is None:
-        return False
-
-    ind.fitness.values, ind.train_test = fit, tt
-    return True
-
-
-def _mutate_once(ind1, params, toolbox, index_pb, param_pb, swap_pb):
+def _mutate_once(ind1, params, toolbox, index_pb, method, param_pb=None):
     """
-        The individual is mutated according to argument probabilities.
-        If a step is mutated
-            - it is replaced whole (with probability of swap_pb)
-            - only some of its parameters are mutated (with probability 1 - swap_pb and param_pb for every parameter)
-        Individual length might be modified with probability len_pb.
-        The individual is modified in place.
+        The individual is mutated according to probabilities. Parameter mutation is performed using a hill-climbing
+        algorithm. The individual is modified in place.
         :param ind1: The individual to be mutated
         :param params: Dictionary which contains all method parameter dictionaries (indexed by name)
         :param toolbox: Deap toolbox
         :param index_pb: Probability of a single step to be mutated.
         :param param_pb: Probability of a single step parameter to be mutated.
-        :param swap_pb: Probability of a step to be replaced by a random preprocessor/classifier. If it is not replaced,
-                        the parameters are mutated instead.
-        :param len_pb: Probability of the of individual length mutation
         :return: A mutated individual
         """
 
@@ -98,14 +91,20 @@ def _mutate_once(ind1, params, toolbox, index_pb, param_pb, swap_pb):
 
     for i in modif_ind:
         # swap mutation
-        rnd = random.random()
-        if rnd < swap_pb:
+        if method == 'swap':
             # random preprocessor or classifier respectively
             ind1[i] = toolbox.random_clf() if i == len(ind1) - 1 else toolbox.random_prepro()
+
         # parameter mutation
-        else:
+        elif method == 'params':
             name, p_list = ind1[i]
-            ind1[i] = name, mutate_params(params[name], param_pb, p_list)
+            ind1[i] = name, change_params(params[name], param_pb, p_list)
+
+        # invalid method
+        else:
+            raise ValueError
+
+    return ind1
 
 
 def mutate_length(ind, toolbox):
@@ -118,7 +117,7 @@ def mutate_length(ind, toolbox):
         del ind[0]
 
 
-def mutate_params(possible, param_pb, values):
+def change_params(possible, param_pb, values):
     """
     Mutates some of the parameters. The values are replaced with a random choice from possible.
     :param possible: Dict of lists of possible values indexed by parameter name.
@@ -198,7 +197,7 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
         offspring = [ind for ind in offspring if ind.fitness.valid]
         # next population is selected from the previous one and from produced offspring
         # population[:] = toolbox.select(population + valid_offs, pop_size)
-        population[:] = toolbox.select(hof[:] + offspring, pop_size)
+        population[:] = toolbox.select(hof[:2] + offspring, pop_size)
 
         hof.update(population)
         toolbox.log(population, g)
