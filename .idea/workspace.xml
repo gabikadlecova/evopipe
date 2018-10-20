@@ -2,34 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="44d3a2b3-59fb-468b-8493-bccea90fe9a2" name="Default" comment="Changed project structure, added preprocessor grouping, changed xover and mutation">
-      <change afterPath="$PROJECT_DIR$/datasets/magic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/all-data-raw-statistics.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/all-data-raw.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/all-data-statistics.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/bridge-holden-paulson-details.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/train.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/validation.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/wilt-test.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/datasets/wilt-train.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evopipe-magic.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evopipe-wilt-params-Copy1.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evopipe/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evopipe/deapevo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evopipe/evaluator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evopipe/evopipe.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/evopipe/steps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deapevo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/evaluator.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/evopipe-digits-params.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe-digits-params.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evopipe-wilt-params.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe-wilt-params.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evopipe-wine-params.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe-wine-params.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/evopipe.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/steps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wilt-test.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wilt-train.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/evopipe-magic.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe-magic.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evopipe/deapevo.py" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe/deapevo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evopipe/evopipe.py" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe/evopipe.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +16,7 @@
     <session id="828253605">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="29" />
+          <entry key="project.closed" value="30" />
           <entry key="project.open.time.10" value="4" />
           <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.13" value="1" />
@@ -67,14 +42,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="7" />
-          <entry key="py" value="19351" />
+          <entry key="py" value="19699" />
           <entry key="txt" value="486" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="493" />
-          <entry key="Python" value="19351" />
+          <entry key="Python" value="19699" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -88,11 +63,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/evopipe/evopipe.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="254" column="13" selection-start-line="254" selection-start-column="13" selection-end-line="254" selection-end-column="13" />
+            <state relative-caret-position="2085">
+              <caret line="139" column="8" selection-start-line="139" selection-start-column="8" selection-end-line="139" selection-end-column="8" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -100,33 +75,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://C:/Anaconda/Lib/random.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="244" column="26" lean-forward="true" selection-start-line="244" selection-start-column="26" selection-end-line="244" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/evopipe/deapevo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="233" column="41" selection-start-line="233" selection-start-column="41" selection-end-line="233" selection-end-column="41" />
+            <state relative-caret-position="93">
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
               <folding>
-                <marker date="1540059071033" expanded="true" signature="4854:4855" ph="..." />
-                <marker date="1540059071033" expanded="true" signature="7231:7237" ph="..." />
+                <marker date="1540067247412" expanded="true" signature="2060:2227" ph="..." />
+                <marker date="1540067247412" expanded="true" signature="5426:5427" ph="..." />
+                <marker date="1540067247412" expanded="true" signature="7803:7809" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://C:/Anaconda/Lib/site-packages/deap/base.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="195" selection-start-line="195" selection-end-line="195" />
             </state>
           </provider>
         </entry>
@@ -206,8 +164,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-27" />
-    <option name="y" value="-16" />
+    <option name="x" value="2099" />
+    <option name="y" value="103" />
     <option name="width" value="1392" />
     <option name="height" value="1001" />
   </component>
@@ -464,7 +422,14 @@
       <option name="project" value="LOCAL" />
       <updated>1538248944148</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Changed project structure, added preprocessor grouping, changed xover and mutation">
+      <created>1540060624571</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1540060624571</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -477,7 +442,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1186" extended-state="6" />
+    <frame x="1912" y="118" width="1936" height="1066" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17755532" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -485,13 +450,13 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3298479" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32889733" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.48288974" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5450644" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3298479" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32946634" />
       <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.49789253" visible="true" weight="0.26996198" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49789253" weight="0.26996198" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5015806" side_tool="true" weight="0.32889733" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -803,13 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda/Lib/site-packages/deap/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="195" selection-start-line="195" selection-end-line="195" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -820,23 +778,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evopipe/deapevo.py">
+    <entry file="file://$PROJECT_DIR$/evopipe/evopipe.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="233" column="41" selection-start-line="233" selection-start-column="41" selection-end-line="233" selection-end-column="41" />
+        <state relative-caret-position="2085">
+          <caret line="139" column="8" selection-start-line="139" selection-start-column="8" selection-end-line="139" selection-end-column="8" />
           <folding>
-            <marker date="1540059071033" expanded="true" signature="4854:4855" ph="..." />
-            <marker date="1540059071033" expanded="true" signature="7231:7237" ph="..." />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evopipe/evopipe.py">
+    <entry file="file://C:/Anaconda/Lib/site-packages/deap/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="254" column="13" selection-start-line="254" selection-start-column="13" selection-end-line="254" selection-end-column="13" />
+        <state relative-caret-position="1635">
+          <caret line="195" selection-start-line="195" selection-end-line="195" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evopipe/deapevo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1540067247412" expanded="true" signature="2060:2227" ph="..." />
+            <marker date="1540067247412" expanded="true" signature="5426:5427" ph="..." />
+            <marker date="1540067247412" expanded="true" signature="7803:7809" ph="..." />
           </folding>
         </state>
       </provider>

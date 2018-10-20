@@ -19,7 +19,7 @@ def cx_one_point_rev(ind1, ind2):
     return ind1, ind2
 
 
-def cx_uniform(ind1, ind2, prepro_names):
+def cx_uniform(ind1, ind2, prepro_names, cx_swap_pb=0.3):
     pos1 = 0
     pos2 = 0
 
@@ -34,7 +34,7 @@ def cx_uniform(ind1, ind2, prepro_names):
             continue
 
         if not val1:
-            if random.random() < 0.5:
+            if random.random() < cx_swap_pb:
                 ind1.insert(pos1, ind2[pos2])
                 ind2.pop(pos2)
                 pos1 += 1
@@ -42,7 +42,7 @@ def cx_uniform(ind1, ind2, prepro_names):
                 pos2 += 1
 
         elif not val2:
-            if random.random() < 0.5:
+            if random.random() < cx_swap_pb:
                 ind2.insert(pos2, ind1[pos1])
                 ind1.pop(pos1)
                 pos2 += 1
@@ -50,12 +50,28 @@ def cx_uniform(ind1, ind2, prepro_names):
                 pos1 += 1
 
         else:
-            if random.random() < 0.5:
-                ind1[pos1], ind2[pos2] = ind2[pos2], ind1[pos1]
+            if random.random() < cx_swap_pb:
+                if ind1[pos1][0] == ind2[pos2][0]:
+                    _cx_params(ind1[pos1][1], ind2[pos2][1], cx_swap_pb)
+                else:
+                    ind1[pos1], ind2[pos2] = ind2[pos2], ind1[pos1]
             pos1 += 1
             pos2 += 1
 
+    # clf parameter crossover
+    if ind1[-1][0] == ind2[-1][0]:
+        if random.random() < cx_swap_pb:
+            _cx_params(ind1[-1][1], ind2[-1][1], cx_swap_pb)
+
     return ind1, ind2
+
+
+def _cx_params(params1, params2, cx_swap_pb):
+    for key in params1.keys():
+        if random.random() < cx_swap_pb:
+            params1[key], params2[key] = params2[key], params1[key]
+
+    return params1, params2
 
 
 def mutate_individual(ind1, params, prepro_names, toolbox, index_pb, param_pb, swap_pb, len_pb, n_iter=4):

@@ -137,8 +137,8 @@ class EvoPipeClassifier:
         creator.create("PipeFitness", base.Fitness, weights=(1.0, -1.0))
         creator.create("Individual", list, fitness=creator.PipeFitness)
 
-        # pool = multiprocessing.Pool()
-        # toolbox.register("map", pool.map)
+        pool = multiprocessing.Pool()
+        toolbox.register("map", pool.map)
 
         toolbox.register("random_prepro", self._random_prepro)
         toolbox.register("random_clf", self._random_clf)
