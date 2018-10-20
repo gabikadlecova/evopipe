@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/evopipe.py" line="207" />
-    <bookmark url="file://$PROJECT_DIR$/evopipe.py" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="44d3a2b3-59fb-468b-8493-bccea90fe9a2" name="Default" comment="Score cache, hill climbing">
+    <list default="true" id="44d3a2b3-59fb-468b-8493-bccea90fe9a2" name="Default" comment="Changed project structure, added preprocessor grouping, changed xover and mutation">
+      <change afterPath="$PROJECT_DIR$/datasets/magic.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/all-data-raw-statistics.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/all-data-raw.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/all-data-statistics.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/bridge-holden-paulson-details.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/ml-prove/validation.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/wilt-test.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datasets/wilt-train.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evopipe-magic.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evopipe-wilt-params-Copy1.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evopipe/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evopipe/deapevo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evopipe/evaluator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evopipe/evopipe.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/evopipe/steps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deapevo.py" beforeDir="false" afterPath="$PROJECT_DIR$/deapevo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deapevo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/evaluator.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/evopipe-digits-params.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe-digits-params.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evopipe-wilt-params.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe-wilt-params.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/evopipe-wine-params.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/evopipe-wine-params.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/evopipe.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/steps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wilt-test.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wilt-train.csv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,39 +41,40 @@
     <session id="828253605">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="15" />
-          <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.11" value="1" />
+          <entry key="project.closed" value="29" />
+          <entry key="project.open.time.10" value="4" />
+          <entry key="project.open.time.11" value="2" />
+          <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.210" value="1" />
-          <entry key="project.open.time.7" value="5" />
-          <entry key="project.open.time.8" value="3" />
-          <entry key="project.open.time.9" value="4" />
-          <entry key="project.opened" value="15" />
+          <entry key="project.open.time.7" value="9" />
+          <entry key="project.open.time.8" value="5" />
+          <entry key="project.open.time.9" value="7" />
+          <entry key="project.opened" value="29" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="jpg" value="2" />
-          <entry key="py" value="63" />
+          <entry key="py" value="88" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="2" />
-          <entry key="Python" value="63" />
+          <entry key="Python" value="88" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="7" />
-          <entry key="py" value="14433" />
-          <entry key="txt" value="389" />
+          <entry key="py" value="19351" />
+          <entry key="txt" value="486" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="396" />
-          <entry key="Python" value="14433" />
+          <entry key="PLAIN_TEXT" value="493" />
+          <entry key="Python" value="19351" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
@@ -67,44 +88,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/evaluator.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/evopipe/evopipe.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="43" selection-start-line="43" selection-end-line="43" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/steps.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="20" column="64" selection-start-line="20" selection-start-column="64" selection-end-line="20" selection-end-column="64" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/evopipe.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="182" selection-start-line="182" selection-end-line="182" />
+            <state relative-caret-position="419">
+              <caret line="254" column="13" selection-start-line="254" selection-start-column="13" selection-end-line="254" selection-end-column="13" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -112,14 +100,44 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/deapevo.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/Anaconda/Lib/random.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1591">
-              <caret line="43" selection-start-line="43" selection-end-line="43" />
+            <state>
+              <caret line="244" column="26" lean-forward="true" selection-start-line="244" selection-start-column="26" selection-end-line="244" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/evopipe/deapevo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="208">
+              <caret line="233" column="41" selection-start-line="233" selection-start-column="41" selection-end-line="233" selection-end-column="41" />
               <folding>
-                <marker date="1538247537658" expanded="true" signature="1236:1977" ph="..." />
-                <marker date="1538247537658" expanded="true" signature="1974:1977" ph="..." />
+                <marker date="1540059071033" expanded="true" signature="4854:4855" ph="..." />
+                <marker date="1540059071033" expanded="true" signature="7231:7237" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://C:/Anaconda/Lib/site-packages/deap/base.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="195" selection-start-line="195" selection-end-line="195" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="22" column="60" selection-start-line="22" selection-start-column="60" selection-end-line="22" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -145,6 +163,15 @@
       <find>mutate_</find>
       <find>eval</find>
       <find>evalu</find>
+      <find>precom</find>
+      <find>prepro_d</find>
+      <find>sampl</find>
+      <find>prepro_p</find>
+      <find>sam</find>
+      <find>mate</find>
+      <find>test</find>
+      <find>random</find>
+      <find>map</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -167,17 +194,20 @@
         <option value="$PROJECT_DIR$/.ipynb_checkpoints/estimators.py" />
         <option value="$PROJECT_DIR$/.ipynb_checkpoints/steps.py" />
         <option value="$PROJECT_DIR$/deap-evo.py" />
-        <option value="$PROJECT_DIR$/steps.py" />
         <option value="$PROJECT_DIR$/evaluator.py" />
+        <option value="$PROJECT_DIR$/steps.py" />
         <option value="$PROJECT_DIR$/evopipe.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/deapevo.py" />
+        <option value="$PROJECT_DIR$/evopipe/test.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/evopipe/evopipe.py" />
+        <option value="$PROJECT_DIR$/evopipe/deapevo.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-27" />
+    <option name="y" value="-16" />
     <option name="width" value="1392" />
     <option name="height" value="1001" />
   </component>
@@ -193,6 +223,16 @@
               <item name="evo-pipe" type="b2602c69:ProjectViewProjectNode" />
               <item name="evo-pipe" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="evo-pipe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evo-pipe" type="462c0819:PsiDirectoryNode" />
+              <item name="datasets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="evo-pipe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="evo-pipe" type="462c0819:PsiDirectoryNode" />
+              <item name="evopipe" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -202,6 +242,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="reference.settings.ide.settings.file-colors" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\Code\Python\evo-pipe" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -215,7 +260,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test (1)">
+  <component name="RunManager" selected="Python.test (2)">
     <configuration name="deapevo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="evo-pipe" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -279,6 +324,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="evo-pipe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/evopipe" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="G:\Code\Python\evo-pipe\test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="evo-pipe" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -300,41 +366,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="zk" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="evo-pipe" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="G:\Code\Python\evo-pipe\main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.zk" />
       <item itemvalue="Python.evopipe" />
       <item itemvalue="Python.test" />
       <item itemvalue="Python.deapevo" />
       <item itemvalue="Python.test (1)" />
+      <item itemvalue="Python.test (2)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test (2)" />
         <item itemvalue="Python.test (1)" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.deapevo" />
         <item itemvalue="Python.evopipe" />
-        <item itemvalue="Python.zk" />
       </list>
     </recent_temporary>
   </component>
@@ -412,10 +457,17 @@
       <option name="project" value="LOCAL" />
       <updated>1537966865263</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Score cache, hill climbing">
+      <created>1538248944148</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1538248944148</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -433,13 +485,13 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3298479" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32889733" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39828897" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.48288974" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3298479" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32946634" />
       <window_info anchor="bottom" id="Python Console" order="8" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.49789253" visible="true" weight="0.32889733" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.49789253" visible="true" weight="0.26996198" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5015806" side_tool="true" weight="0.32889733" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -484,23 +536,10 @@
     <MESSAGE value="Jupyter results" />
     <MESSAGE value="Added length mutation" />
     <MESSAGE value="Score cache, hill climbing" />
-    <option name="LAST_COMMIT_MESSAGE" value="Score cache, hill climbing" />
+    <MESSAGE value="Changed project structure, added preprocessor grouping, changed xover and mutation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed project structure, added preprocessor grouping, changed xover and mutation" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/test.py</url>
-          <line>24</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/deapevo.py</url>
-          <line>116</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="hof" />
@@ -511,50 +550,47 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
-        <expression-string>self._eval_cache[ind_str]</expression-string>
+        <expression-string>list(names2)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>ind_str</expression-string>
+        <expression-string>list(prepro_ind1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self._eval_cache.</expression-string>
+        <expression-string>set(names)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self._eval_cache.items()[0]</expression-string>
+        <expression-string>list(names)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>for i in self._eval_cache.keys():
-    i
-    break</expression-string>
+        <expression-string>list(prepro_ind2)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self._eval_cache.keys()</expression-string>
+        <expression-string>list(map(lambda x: x in list(map(lambda i: i[2], ind1[:-1])), prepro_names))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>self._eval_cache.keys()[0]</expression-string>
+        <expression-string>list(map(lambda i: i[2], ind1[:-1]))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>import sys
-sys.exc_info()</expression-string>
+        <expression-string>list(names1)</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
       <expression>
-        <expression-string>hof[:2]</expression-string>
+        <expression-string>list(zip(prepro_ind1, prepro_ind2))</expression-string>
         <language-id>Python</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
@@ -596,20 +632,6 @@ sys.exc_info()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda/Lib/tokenize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="451" selection-start-line="451" selection-end-line="451" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda/Lib/site-packages/numpy/core/_methods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="69" selection-start-line="69" selection-end-line="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Anaconda/Lib/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -638,24 +660,10 @@ sys.exc_info()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda/Lib/inspect.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="2496" selection-start-line="2496" selection-end-line="2496" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/feature_selection/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="519" selection-start-line="519" selection-end-line="519" />
         </state>
       </provider>
     </entry>
@@ -666,13 +674,6 @@ sys.exc_info()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Anaconda/Lib/random.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="258" selection-start-line="258" selection-end-line="258" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -680,12 +681,8 @@ sys.exc_info()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/19ed707c-f2f0-4f7a-9b71-b2781b227138.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/45a090cc-b317-48b1-9ea5-93d6007e814b.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/19ed707c-f2f0-4f7a-9b71-b2781b227138.jpg" />
+    <entry file="file://$PROJECT_DIR$/45a090cc-b317-48b1-9ea5-93d6007e814b.jpg" />
     <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/metrics/scorer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -700,6 +697,91 @@ sys.exc_info()</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Anaconda/Lib/inspect.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="3035" selection-start-line="3035" selection-end-line="3035" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/externals/joblib/parallel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="778" selection-start-line="778" selection-end-line="778" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/model_selection/_validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="341" selection-start-line="341" selection-end-line="341" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/scipy/linalg/decomp_svd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="124" selection-start-line="124" selection-end-line="124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/scipy/linalg/lapack.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="607" selection-start-line="607" selection-end-line="607" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/scipy/linalg/decomp_qr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/numpy/core/_methods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/sklearn/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="200" selection-start-line="200" selection-end-line="200" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluator.py" />
+    <entry file="file://$PROJECT_DIR$/test.py" />
+    <entry file="file://$PROJECT_DIR$/steps.py" />
+    <entry file="file://$PROJECT_DIR$/evopipe.py" />
+    <entry file="file://$PROJECT_DIR$/deapevo.py" />
+    <entry file="file://C:/Anaconda/Lib/tokenize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="451" selection-start-line="451" selection-end-line="451" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evopipe/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/pandas/io/common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="156" selection-start-line="156" selection-end-line="156" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Anaconda/Lib/site-packages/pandas/io/parsers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="1048" selection-start-line="1048" selection-end-line="1048" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://C:/Anaconda/Lib/multiprocessing/spawn.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -707,57 +789,54 @@ sys.exc_info()</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evaluator.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
+    <entry file="file://C:/Anaconda/Lib/random.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/steps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="20" column="64" selection-start-line="20" selection-start-column="64" selection-end-line="20" selection-end-column="64" />
+        <state>
+          <caret line="244" column="26" lean-forward="true" selection-start-line="244" selection-start-column="26" selection-end-line="244" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://C:/Anaconda/Lib/site-packages/deap/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="322">
-          <caret line="223" selection-start-line="223" selection-end-line="223" />
+          <caret line="195" selection-start-line="195" selection-end-line="195" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evopipe.py">
+    <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="182" selection-start-line="182" selection-end-line="182" />
+        <state relative-caret-position="60">
+          <caret line="22" column="60" selection-start-line="22" selection-start-column="60" selection-end-line="22" selection-end-column="60" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deapevo.py">
+    <entry file="file://$PROJECT_DIR$/evopipe/deapevo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1591">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        <state relative-caret-position="208">
+          <caret line="233" column="41" selection-start-line="233" selection-start-column="41" selection-end-line="233" selection-end-column="41" />
           <folding>
-            <marker date="1538247537658" expanded="true" signature="1236:1977" ph="..." />
-            <marker date="1538247537658" expanded="true" signature="1974:1977" ph="..." />
+            <marker date="1540059071033" expanded="true" signature="4854:4855" ph="..." />
+            <marker date="1540059071033" expanded="true" signature="7231:7237" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evopipe/evopipe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="254" column="13" selection-start-line="254" selection-start-column="13" selection-end-line="254" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

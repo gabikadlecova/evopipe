@@ -3,15 +3,16 @@ import numpy as np
 import multiprocessing
 
 from collections import OrderedDict
-import deapevo
-from evaluator import DefaultEvaluator
+import evopipe.deapevo as deapevo
+from .evaluator import DefaultEvaluator
 
 from deap import base, creator, tools
 from sklearn.pipeline import make_pipeline
+from functools import partial
 
 
 class EvoPipeClassifier:
-    def __init__(self, preproc, classif, params, max_prepro=4, ngen=40, pop_size=30, scorer=None,
+    def __init__(self, preproc, classif, params, prepro_names, max_prepro=2, ngen=40, pop_size=30, scorer=None,
                  ind_mutpb=0.1, param_mutpb=0.2, swap_mutpb=0.1, len_mutpb=0.4, mutpb=0.25, cxpb=0.5,
                  turns=3, hf_size=5):
         """
@@ -44,6 +45,7 @@ class EvoPipeClassifier:
         self._scorer = scorer
 
         self.max_prepro = max_prepro
+        self.prepro_names = prepro_names
         self._ngen = ngen
         self._pop_size = pop_size
 
@@ -135,8 +137,8 @@ class EvoPipeClassifier:
         creator.create("PipeFitness", base.Fitness, weights=(1.0, -1.0))
         creator.create("Individual", list, fitness=creator.PipeFitness)
 
-        pool = multiprocessing.Pool()
-        toolbox.register("map", pool.map)
+        # pool = multiprocessing.Pool()
+        # toolbox.register("map", pool.map)
 
         toolbox.register("random_prepro", self._random_prepro)
         toolbox.register("random_clf", self._random_clf)
@@ -145,10 +147,12 @@ class EvoPipeClassifier:
         toolbox.register("individual", tools.initIterate, creator.Individual, self._ind_range)
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-        toolbox.register("mate", deapevo.cx_one_point_rev)
+        cx_func = partial(deapevo.cx_uniform, prepro_names=self.prepro_names)
+
+        toolbox.register("mate", cx_func)
         toolbox.register("mutate", deapevo.mutate_individual, params=self.params_dict, toolbox=toolbox,
-                         index_pb=self._index_mutpb, param_pb=self._param_mutpb, swap_pb=self._swap_mutpb,
-                         len_pb=self._len_mutpb)
+                         prepro_names=self.prepro_names, index_pb=self._index_mutpb, param_pb=self._param_mutpb,
+                         swap_pb=self._swap_mutpb, len_pb=self._len_mutpb)
 
         toolbox.register("evaluate", self._eval_pipe)
         toolbox.register("select", tools.selTournament, tournsize=self._trn_size)
@@ -166,21 +170,33 @@ class EvoPipeClassifier:
         i = 0
         # variable number of preprocessors is allowed
         n_prepro = random.randint(0, self.max_prepro)
+        unordered = random.sample(self.prepro_names, n_prepro)
+        types = [x for x in self.prepro_names if x in unordered]
 
-        while i < n_prepro:
-            i = i + 1
-            yield self._random_prepro()
+        for t in types:
+            yield self._random_prepro(t)
 
         yield self._random_clf()
 
-    def _random_prepro(self):
+    def _random_prepro(self, prepro_type, used=None):
         """
         Returns a random preprocessor with parameters chosen randomly from the corresponding params dict
         :return: Name of the preprocessor, parameters
         """
+        if prepro_type not in self.prepro_dict.keys():
+            raise ValueError("Invalid preprocessor type.")
+
         # random choice from preprocessor list, corresponding parameters are found in the params dict
-        name = random.choice(list(self.prepro_dict.keys()))
-        return name, self._rand_params(name)
+        prepro_possible = list(self.prepro_dict[prepro_type].keys())
+
+        name = used
+        while name == used:
+            name = random.choice(prepro_possible)
+            # possibly only one preprocessor (might be equal to used => cycle would not end)
+            if len(prepro_possible) == 1:
+                break
+
+        return name, self._rand_params(name), prepro_type
 
     def _random_clf(self):
         """
@@ -217,7 +233,8 @@ class EvoPipeClassifier:
 
         # there don't have to be necessarily any preprocessor steps in the pipeline
         if len(ind) > 1:
-            ind_prepro = map(lambda index: self.prepro_dict[index[0]](**index[1]), ind[:-1])
+            # index[0] is preprocessor name, index[1] are preproc. parameters, index[2] is prepro type
+            ind_prepro = map(lambda index: self.prepro_dict[index[2]][index[0]](**index[1]), ind[:-1])
         else:
             ind_prepro = []
 
@@ -232,8 +249,10 @@ class EvoPipeClassifier:
         :return: Score of the compiled pipeline
         """
 
+        print("\revaluating: {0}".format(ind), end='')
         ind_str = str(ind)
         if ind_str not in self._eval_cache.keys():
+            #todo redo
             pipe = self._compile_pipe(ind)
 
             score = self._eval.score(pipe, scorer=self._scorer)

@@ -8,5 +8,6 @@
 #   git rm -r .ipynb_checkpoints/
 #
 
+pictures
 
 # End of https://www.gitignore.io/api/jupyternotebook

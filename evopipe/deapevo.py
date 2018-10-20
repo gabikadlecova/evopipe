@@ -19,7 +19,46 @@ def cx_one_point_rev(ind1, ind2):
     return ind1, ind2
 
 
-def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb, len_pb, n_iter=4):
+def cx_uniform(ind1, ind2, prepro_names):
+    pos1 = 0
+    pos2 = 0
+
+    names1 = list(map(lambda i: i[2], ind1[:-1]))
+    names2 = list(map(lambda i: i[2], ind2[:-1]))
+
+    prepro_ind1 = list(map(lambda x: x in names1, prepro_names))
+    prepro_ind2 = list(map(lambda x: x in names2, prepro_names))
+
+    for val1, val2 in zip(prepro_ind1, prepro_ind2):
+        if not val1 and not val2:
+            continue
+
+        if not val1:
+            if random.random() < 0.5:
+                ind1.insert(pos1, ind2[pos2])
+                ind2.pop(pos2)
+                pos1 += 1
+            else:
+                pos2 += 1
+
+        elif not val2:
+            if random.random() < 0.5:
+                ind2.insert(pos2, ind1[pos1])
+                ind1.pop(pos1)
+                pos2 += 1
+            else:
+                pos1 += 1
+
+        else:
+            if random.random() < 0.5:
+                ind1[pos1], ind2[pos2] = ind2[pos2], ind1[pos1]
+            pos1 += 1
+            pos2 += 1
+
+    return ind1, ind2
+
+
+def mutate_individual(ind1, params, prepro_names, toolbox, index_pb, param_pb, swap_pb, len_pb, n_iter=4):
     """
 
     :param ind1:
@@ -35,11 +74,12 @@ def mutate_individual(ind1, params, toolbox, index_pb, param_pb, swap_pb, len_pb
 
     if random.random() < swap_pb:
         ind1 = _mutate_once(ind1, params, toolbox, index_pb, 'swap')
+
+    elif random.random() < len_pb:
+        mutate_length(ind1, prepro_names, toolbox)
+
     else:
         ind1 = _mutate_params(ind1, toolbox, params, index_pb, param_pb, n_iter)
-
-    if random.random() < len_pb:
-        mutate_length(ind1, toolbox)
 
     return ind1
 
@@ -93,12 +133,16 @@ def _mutate_once(ind1, params, toolbox, index_pb, method, param_pb=None):
         # swap mutation
         if method == 'swap':
             # random preprocessor or classifier respectively
-            ind1[i] = toolbox.random_clf() if i == len(ind1) - 1 else toolbox.random_prepro()
+            ind1[i] = toolbox.random_clf() if i == len(ind1) - 1 else toolbox.random_prepro(ind1[i][2], used=ind1)
 
-        # parameter mutation
+            # parameter mutation
         elif method == 'params':
-            name, p_list = ind1[i]
-            ind1[i] = name, change_params(params[name], param_pb, p_list)
+            if i == len(ind1) - 1:
+                name, p_list = ind1[i]
+                ind1[i] = name, change_params(params[name], param_pb, p_list)
+            else:
+                name, p_list, p_type = ind1[i]
+                ind1[i] = name, change_params(params[name], param_pb, p_list), p_type
 
         # invalid method
         else:
@@ -107,14 +151,43 @@ def _mutate_once(ind1, params, toolbox, index_pb, method, param_pb=None):
     return ind1
 
 
-def mutate_length(ind, toolbox):
+'''def mutate_length(ind, toolbox):
     # add preprocessor - individual too short/probability
-    if len(ind) < 2 or random.random() < 0.4:
+    if len(ind) < 2 or random.random() < (1.0 / len(ind)):
         random_prepro = toolbox.random_prepro()
         ind.insert(0, random_prepro)
     # remove a preprocessor
     else:
-        del ind[0]
+        del ind[0]'''
+
+
+def mutate_length(ind, prepro_names, toolbox):
+
+    # insert random preprocessor
+    if len(ind) < 2 or random.random() < (1.0 / len(ind)):
+        names = list(map(lambda i: i[2], ind[:-1]))
+
+        possible = list(filter(lambda val: val not in names, prepro_names))
+        if len(possible) == 0:
+            return
+
+        prepro_name = random.choice(possible)
+        prepro = toolbox.random_prepro(prepro_name)
+
+        insert_at = 0
+        for name in prepro_names:
+            if name == prepro_name:
+                break
+
+            if name in names:
+                insert_at += 1
+
+        ind.insert(insert_at, prepro)
+
+    # remove a preprocessor
+    else:
+        to_del = random.randint(0, len(ind) - 2)
+        del ind[to_del]
 
 
 def change_params(possible, param_pb, values):
@@ -133,6 +206,19 @@ def change_params(possible, param_pb, values):
     return values
 
 
+def _test(ch):
+    if len(ch) > 3:
+        raise ValueError("len")
+
+    names = list(map(lambda x: x[2], ch[:-1]))
+    if len(names) > len(set(names)):
+        raise ValueError("duplicate")
+
+    if len(ch) == 3:
+        if ch[0][2] == 'scaling':
+            raise ValueError("first")
+
+
 def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
     """
     Performs a simple evolutionary algorithm on population. The toolbox must contain following
@@ -149,6 +235,7 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
     :return: The result population after ngen generations
     """
 
+
     # setup
     scores = map(toolbox.evaluate, population)
     for ind, (fit, tt) in zip(population, scores):
@@ -156,6 +243,7 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
         if fit is None:
             continue
 
+        _test(ind)
         ind.fitness.values = fit
         ind.train_test = tt
 
@@ -196,14 +284,14 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
 
         offspring = [ind for ind in offspring if ind.fitness.valid]
         # next population is selected from the previous one and from produced offspring
-        # population[:] = toolbox.select(population + valid_offs, pop_size)
-        population[:] = toolbox.select(hof[:2] + offspring, pop_size)
+        # population[:] = toolbox.select(population + offspring, pop_size)
+        population[:] = hof[:2] + toolbox.select(offspring, pop_size - 2)
 
         hof.update(population)
         toolbox.log(population, g)
 
+        print("\nGen {}:\n".format(g + 1))
         if g % 5 == 0:
-            print("\nGen {}:\n".format(g + 1))
             # current HallOfFame
             print("Hall of fame:")
             for hof_ind in hof.items:

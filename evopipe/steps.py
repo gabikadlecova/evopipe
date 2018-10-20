@@ -24,13 +24,79 @@ def _comp_or_default(feat_size=None, default=None):
 
 def get_params(feat_size=None):
     params = {
+        'NMF': {
+            'n_components': _comp_or_default(feat_size),
+            'solver' : ['cd', 'mu']
+        },
+        'FA': {
+            'n_components': _comp_or_default(feat_size)
+        },
+        'FastICA': {
+            'n_components': _comp_or_default(feat_size),
+
+        },
+        'KernelPCA': {
+            'n_components': _comp_or_default(feat_size),
+            'kernel': ['linear', 'poly', 'rbf', 'sigmoid', 'cosine']
+        },
+
+        'ADA': {
+            #base estimator by musela byt inicializace parametry, pak
+            'n_estimators': [5, 10, 50, 100, 200]
+        },
+        'ExtraTrees': {
+            'n_estimators': [5, 10, 50, 100, 200],
+            'max_depth': [2, 3, 5, 10, None]
+        },
+        'Bagging': {
+            'n_estimators': [5, 10, 50, 100, 200]
+        },
+        'GradientB': {
+            'n_estimators': [5, 10, 50, 100, 200]
+        },
+        'RandomForest': {
+            'n_estimators': [5, 10, 50, 100, 200],
+            'max_depth': [2, 3, 5, 10, None]
+        },
+
+        'KNeighbors': {
+            'n_neighbors': [1, 2, 5],
+            'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute']
+        },
+        'LinearSVC': {
+            'loss': ['hinge', 'squared_hinge'],
+            'penalty': ['l1', 'l2'],
+            'C': [0.1, 0.5, 1.0, 2, 5, 10, 15],
+            'tol': [0.0001, 0.001, 0.01]
+        },
+
+        'Binarizer': {
+
+        },
+        'MaxAbsScaler': {
+
+        },
+        'MinMaxScaler': {
+
+        },
+        "Normalizer": {
+
+        },
+        "OneHot": {
+
+        },
+        "StandardScaler": {
+
+        },
+
+
         'PCA': {
             'n_components': _comp_or_default(feat_size),
             'whiten': [False, True],
         },
-
         'kBest': {
-            'k': _comp_or_default(feat_size, default=10)
+            'k': _comp_or_default(feat_size, default=10),
+            'score_func': [feature_selection.chi2, feature_selection.f_classif]
         },
         'SVC': {
             'C': [0.1, 0.5, 1.0, 2, 5, 10, 15],
@@ -98,13 +164,36 @@ def get_params(feat_size=None):
 
 
 preproc = {
+    'featsel': {
+        "NMF": decomposition.NMF,
+        "FA":  decomposition.FactorAnalysis,
+        "FastICA": decomposition.FastICA,
+        # "KernelPCA": decomposition.KernelPCA,
+    
+        "PCA": decomposition.PCA,
+        "kBest": feature_selection.SelectKBest
+    },
+    'scaling' : {
+        #'Binarizer': preprocessing.Binarizer,
+        "MaxAbsScaler": preprocessing.MaxAbsScaler,
+        "MinMaxScaler": preprocessing.MinMaxScaler,
+        "Normalizer": preprocessing.Normalizer,
+        #"OneHot": preprocessing.OneHotEncoder,
+        "StandardScaler": preprocessing.StandardScaler
+    }
+}
 
-    "PCA": decomposition.PCA,
-    "kBest": feature_selection.SelectKBest,
-
+clfs_ensembles = {
+    'ADA': ensemble.AdaBoostClassifier,
+    'ExtraTrees': ensemble.ExtraTreesClassifier,
+    'Bagging': ensemble.BaggingClassifier,
+    'GradientB': ensemble.GradientBoostingClassifier,
+    'RandomForest': ensemble.RandomForestClassifier
 }
 
 clfs = {
+    "KNeighbors": neighbors.KNeighborsClassifier,
+    "LinearSVC": svm.LinearSVC,
 
     "SVC":          svm.SVC,
     "logR":         linear_model.LogisticRegression,
@@ -116,7 +205,6 @@ clfs = {
     "MLP":          neural_network.MLPClassifier,
     "gaussianNB":   naive_bayes.GaussianNB,
     "DT":           tree.DecisionTreeClassifier
-    # "kMeans":       cluster.KMeans
 }
 
 _feat_frac = [0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1]
