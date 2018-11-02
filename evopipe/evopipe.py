@@ -13,7 +13,7 @@ from functools import partial
 
 class EvoPipeClassifier:
     def __init__(self, preproc, classif, params, prepro_names, max_prepro=2, ngen=40, pop_size=30, scorer=None,
-                 ind_mutpb=0.1, param_mutpb=0.2, swap_mutpb=0.1, len_mutpb=0.4, mutpb=0.25, cxpb=0.5,
+                 ind_mutpb=0.1, param_mutpb=0.2, swap_mutpb=0.1, len_mutpb=0.4, mutpb=0.25, cxpb=0.5, cx_swap_pb=0.3,
                  turns=3, hf_size=5):
         """
         Optimized classification pipeline
@@ -55,6 +55,7 @@ class EvoPipeClassifier:
         self._len_mutpb = len_mutpb
         self._mutpb = mutpb
         self._cxpb = cxpb
+        self._cx_swap_pb = cx_swap_pb
 
         self._trn_size = turns
 
@@ -147,7 +148,7 @@ class EvoPipeClassifier:
         toolbox.register("individual", tools.initIterate, creator.Individual, self._ind_range)
         toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 
-        cx_func = partial(deapevo.cx_uniform, prepro_names=self.prepro_names)
+        cx_func = partial(deapevo.cx_uniform, prepro_names=self.prepro_names, cx_swap_pb=self._cx_swap_pb)
 
         toolbox.register("mate", cx_func)
         toolbox.register("mutate", deapevo.mutate_individual, params=self.params_dict, toolbox=toolbox,
@@ -169,7 +170,9 @@ class EvoPipeClassifier:
         """
         i = 0
         # variable number of preprocessors is allowed
-        n_prepro = random.randint(0, self.max_prepro)
+        max_pr = min(self.max_prepro, len(self.prepro_names))
+
+        n_prepro = random.randint(0, max_pr)
         unordered = random.sample(self.prepro_names, n_prepro)
         types = [x for x in self.prepro_names if x in unordered]
 

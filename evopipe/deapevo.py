@@ -19,7 +19,7 @@ def cx_one_point_rev(ind1, ind2):
     return ind1, ind2
 
 
-def cx_uniform(ind1, ind2, prepro_names, cx_swap_pb=0.3):
+def cx_uniform(ind1, ind2, prepro_names, cx_swap_pb=0.75):
     pos1 = 0
     pos2 = 0
 
@@ -50,18 +50,17 @@ def cx_uniform(ind1, ind2, prepro_names, cx_swap_pb=0.3):
                 pos1 += 1
 
         else:
-            if random.random() < cx_swap_pb:
-                if ind1[pos1][0] == ind2[pos2][0]:
-                    _cx_params(ind1[pos1][1], ind2[pos2][1], cx_swap_pb)
-                else:
+            if ind1[pos1][0] == ind2[pos2][0]:
+                _cx_params(ind1[pos1][1], ind2[pos2][1], cx_swap_pb)
+            else:
+                if random.random() < cx_swap_pb:
                     ind1[pos1], ind2[pos2] = ind2[pos2], ind1[pos1]
             pos1 += 1
             pos2 += 1
 
     # clf parameter crossover
     if ind1[-1][0] == ind2[-1][0]:
-        if random.random() < cx_swap_pb:
-            _cx_params(ind1[-1][1], ind2[-1][1], cx_swap_pb)
+        _cx_params(ind1[-1][1], ind2[-1][1], cx_swap_pb)
 
     return ind1, ind2
 
@@ -72,6 +71,51 @@ def _cx_params(params1, params2, cx_swap_pb):
             params1[key], params2[key] = params2[key], params1[key]
 
     return params1, params2
+
+
+def mutate_individual_simple(ind1, params, prepro_names, toolbox, index_pb, param_pb, swap_pb, len_pb, n_iter=5):
+    index = random.randint(0, len(ind1) - 1)
+
+    if random.random() < swap_pb:
+        if index < len(ind1) - 1:
+            ind1[index] = toolbox.random_prepro(ind1[index][2], ind1[index][0])
+        else:
+            ind1[index] = toolbox.random_clf()
+
+    elif random.random() < len_pb:
+        mutate_length(ind1, prepro_names, toolbox)
+
+    else:
+        ind1 = mutate_params_simple(ind1, index, toolbox, params, n_iter)
+
+    return ind1
+
+
+def mutate_params_simple(ind1, index, toolbox, params, n_iter):
+    mut_params = params[ind1[index][0]]
+    if len(mut_params) == 0:
+        return ind1
+
+    for i in range(n_iter):
+        mutant = toolbox.clone(ind1)
+
+        rand_param = random.choice(list(mut_params.keys()))
+        ind1[index][1][rand_param] = random.choice(mut_params[rand_param])
+
+        # individual evaluation
+        if not ind1.fitness.valid:
+            if not _try_eval(ind1, toolbox):
+                return ind1
+
+        # mutant evaluation
+        if not _try_eval(mutant, toolbox):
+            continue
+
+        # choose the better one
+        if mutant.fitness.values[0] > ind1.fitness.values[0]:
+            ind1 = mutant
+
+    return ind1
 
 
 def mutate_individual(ind1, params, prepro_names, toolbox, index_pb, param_pb, swap_pb, len_pb, n_iter=4):
@@ -149,7 +193,7 @@ def _mutate_once(ind1, params, toolbox, index_pb, method, param_pb=None):
         # swap mutation
         if method == 'swap':
             # random preprocessor or classifier respectively
-            ind1[i] = toolbox.random_clf() if i == len(ind1) - 1 else toolbox.random_prepro(ind1[i][2], used=ind1)
+            ind1[i] = toolbox.random_clf() if i == len(ind1) - 1 else toolbox.random_prepro(ind1[i][2], used=ind1[i][0])
 
             # parameter mutation
         elif method == 'params':
@@ -180,7 +224,7 @@ def _mutate_once(ind1, params, toolbox, index_pb, method, param_pb=None):
 def mutate_length(ind, prepro_names, toolbox):
 
     # insert random preprocessor
-    if len(ind) < 2 or random.random() < (1.0 / len(ind)):
+    if len(ind) < 2 or random.random() < (1.0 / (len(ind))):
         names = list(map(lambda i: i[2], ind[:-1]))
 
         possible = list(filter(lambda val: val not in names, prepro_names))
@@ -266,6 +310,7 @@ def simple_ea(population, toolbox, ngen, pop_size, cxpb, mutpb, hof):
     population[:] = [ind for ind in population if ind.fitness.valid]
     print('Evolution starting...')
 
+    hof.update(population)
     toolbox.log(population, 0)
 
     # evolution
